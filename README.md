@@ -4,6 +4,7 @@
 A handy lib for converting between cases, from camel case to snake case and hyphen case.
 
 [![Build Status](https://api.travis-ci.org/athom/suitecase.png?branch=master)](https://travis-ci.org/athom/suitecase)
+[![GoDoc](https://godoc.org/github.com/athom/suitecase?status.png)](http://godoc.org/github.com/athom/suitecase)
 
 ## Installation
 
