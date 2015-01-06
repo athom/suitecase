@@ -1,6 +1,10 @@
 package suitecase
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/bom-d-van/goutil/printutils"
+)
 
 // Underscore can convert all upper case characters in a string to
 // underscore format.
@@ -51,23 +55,53 @@ func ToSnakeCase(s string) (r string) {
 	var array []string
 
 	for _, chr := range s {
+		printutils.PrettyPrint(visited)
+
+		if skipable(chr) {
+			visited.push(chr)
+			continue
+		}
+
 		if isUpper(chr) {
-			if !visited.isEmpty() && !isUpper(visited.top()) {
+			if !visited.isEmpty() && isLower(visited.top()) {
+				array = append(array, strings.ToLower(visited.String()))
+				visited.clear()
+			}
+
+			if skipable(visited.top()) {
+				visited.pop()
+				for popable(visited.top()) {
+					visited.pop()
+				}
 				array = append(array, strings.ToLower(visited.String()))
 				visited.clear()
 			}
 			visited.push(chr)
 		} else {
-			if visited.isEmpty() || !isUpper(visited.top()) {
+			if visited.isEmpty() || isLower(visited.top()) {
 				visited.push(chr)
 				continue
 			}
 
 			if visited.depth() > 1 {
+				if skipable(visited.top()) {
+					visited.pop()
+					for popable(visited.top()) {
+						visited.pop()
+					}
+					array = append(array, strings.ToLower(visited.String()))
+					visited.clear()
+					visited.push(chr)
+					continue
+				}
+
 				a := visited.pop()
 				array = append(array, strings.ToLower(visited.String()))
 				visited.clear()
-				visited.push(a)
+				//if a != '_' {
+				if isUpper(a) {
+					visited.push(a)
+				}
 			}
 			visited.push(chr)
 		}
@@ -120,4 +154,11 @@ func isUpper(c rune) bool {
 }
 func isLower(c rune) bool {
 	return 'a' <= c && c <= 'z'
+}
+
+func skipable(c rune) bool {
+	return c == '-' || c == ' ' || c == '_'
+}
+func popable(c rune) bool {
+	return c == '-' || c == ' '
 }

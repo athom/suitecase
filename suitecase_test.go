@@ -19,6 +19,9 @@ func TestToHyphenCase(t *testing.T) {
 		Convey("terminology", func() {
 			So(ToHyphenCase("AA"), ShouldEqual, "aa")
 			So(ToHyphenCase("HTTPServer"), ShouldEqual, "http-server")
+			So(ToHyphenCase("Yeer Kunst"), ShouldEqual, "yeer-kunst")
+			So(ToHyphenCase("Yeer_Kunst"), ShouldEqual, "yeer-kunst")
+			So(ToHyphenCase("Yeer        Kunst"), ShouldEqual, "yeer-kunst")
 		})
 	})
 }
@@ -34,8 +37,18 @@ func TestToSnakeCase(t *testing.T) {
 			So(ToSnakeCase("_camelCase"), ShouldEqual, "_camel_case")
 			So(ToSnakeCase("NoHTTPS"), ShouldEqual, "no_https")
 			So(ToSnakeCase("Wi_thF"), ShouldEqual, "wi_th_f")
-			So(ToSnakeCase("_AnotherTES_TCaseP"), ShouldEqual, "__another_te_s__t_case_p")
+			So(ToSnakeCase("_AnotherTES_TCaseP"), ShouldEqual, "_another_tes_t_case_p")
 			So(ToSnakeCase("ALL"), ShouldEqual, "all")
+			So(ToSnakeCase("A_B"), ShouldEqual, "a_b")
+			So(ToSnakeCase("_A_B_"), ShouldEqual, "_a_b_")
+			So(ToSnakeCase("_A___B_"), ShouldEqual, "_a___b_")
+			So(ToSnakeCase("A B"), ShouldEqual, "a_b")
+			So(ToSnakeCase("A-B"), ShouldEqual, "a_b")
+			So(ToSnakeCase("A   B"), ShouldEqual, "a_b")
+			So(ToSnakeCase("A b"), ShouldEqual, "a_b")
+			So(ToSnakeCase("A _b"), ShouldEqual, "a_b")
+			So(ToSnakeCase("A B c"), ShouldEqual, "a_b_c")
+			So(ToSnakeCase("A   B C d"), ShouldEqual, "a_b_c_d")
 		})
 
 		Convey("terminology", func() {
@@ -50,6 +63,7 @@ func TestToCamelCase(t *testing.T) {
 		So(ToCamelCase("a"), ShouldEqual, "A")
 		So(ToCamelCase("aa"), ShouldEqual, "Aa")
 		So(ToCamelCase("a_a"), ShouldEqual, "AA")
+		So(ToCamelCase("_a"), ShouldEqual, "_A")
 		So(ToCamelCase("AA"), ShouldEqual, "AA")
 		So(ToCamelCase("http_server"), ShouldEqual, "HttpServer")
 		So(ToCamelCase("no_https"), ShouldEqual, "NoHttps")
