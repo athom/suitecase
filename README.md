@@ -1,8 +1,9 @@
 # SuiteCase
 
 
-A handy lib for converting between cases, from camel case to snake case and hypen case.
+A handy lib for converting between cases, from camel case to snake case and hyphen case.
 
+[![Build Status](https://api.travis-ci.org/athom/suitecase.png?branch=master)](https://travis-ci.org/athom/suitecase)
 
 ## Installation
 

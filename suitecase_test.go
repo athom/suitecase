@@ -6,7 +6,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestToHypenCase(t *testing.T) {
+func TestToHyphenCase(t *testing.T) {
 	Convey("to snake case", t, func() {
 		Convey("no terminology", func() {
 			So(
