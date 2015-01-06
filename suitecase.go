@@ -63,7 +63,7 @@ func ToCamelCase(s string) (r string) {
 		newstr := make([]rune, 0)
 		for i, s := range []rune(ele) {
 			if i == 0 {
-				if !isUpper(s) {
+				if isLower(s) {
 					s += 'A' - 'a'
 				}
 				newstr = append(newstr, s)
@@ -71,7 +71,11 @@ func ToCamelCase(s string) (r string) {
 			}
 			newstr = append(newstr, s)
 		}
-		newArray = append(newArray, string(newstr))
+                ns := string(newstr)
+                if ns == ""{
+                        ns = `_`
+                }
+		newArray = append(newArray, ns)
 	}
 
 	r = strings.Join(newArray, "")
@@ -80,4 +84,7 @@ func ToCamelCase(s string) (r string) {
 
 func isUpper(c rune) bool {
 	return 'A' <= c && c <= 'Z'
+}
+func isLower(c rune) bool {
+	return 'a' <= c && c <= 'z'
 }
