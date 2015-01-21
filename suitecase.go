@@ -2,8 +2,6 @@ package suitecase
 
 import (
 	"strings"
-
-	"github.com/bom-d-van/goutil/printutils"
 )
 
 // Underscore can convert all upper case characters in a string to
@@ -55,7 +53,6 @@ func ToSnakeCase(s string) (r string) {
 	var array []string
 
 	for _, chr := range s {
-		printutils.PrettyPrint(visited)
 
 		if skipable(chr) {
 			visited.push(chr)
